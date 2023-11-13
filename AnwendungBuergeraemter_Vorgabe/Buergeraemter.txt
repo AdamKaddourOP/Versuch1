@@ -1,0 +1,5 @@
+Daten des buergeramts
+Name des buergeramts	sadsad
+Oeffnungszeit des buergeramts:	 1.0 2.0
+Strasse und Hausnummer des buergeramts:	3
+Dienstleistungen des buergeramts:	asfdef

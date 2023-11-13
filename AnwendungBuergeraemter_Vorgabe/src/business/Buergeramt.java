@@ -77,5 +77,6 @@ public class Buergeramt {
   		    + this.getStrasseHNr() + trenner + "\n"
   		    + this.getDienstleistungenAlsString(trenner) + "\n";
   	}
+
 }
 
