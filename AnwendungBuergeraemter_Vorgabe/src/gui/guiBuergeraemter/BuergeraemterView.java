@@ -1,4 +1,4 @@
-package gui;
+package gui.guiBuergeraemter;
 
 import business.BuergeraemterModel;
 import business.Buergeramt;
@@ -169,7 +169,7 @@ public class BuergeraemterView {
 
     }//Ende nehmeBuergeramtAuf
     
-    private void zeigeBuergeraemterAn(){
+     void zeigeBuergeraemterAn(){
     	if(buergeraemterModel.getBuergeramt() != null){
 			txtAnzeige.setText(
    			buergeraemterModel.getBuergeramt().gibBuergeramtZurueck(' '));
