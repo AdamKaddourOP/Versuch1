@@ -3,6 +3,7 @@ package business;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import fabrikMethode.ConcreteCreator;
@@ -14,10 +15,14 @@ import ownUtil.Observer;
 
 public class BuergeraemterModel implements Observable {
 	
-	private Buergeramt buergeramt;
+//	private Buergeramt buergeramt;
 	
 	LinkedList<Observer> liste = new LinkedList<Observer>();
-	//Hier noch 
+
+	private ArrayList<Buergeramt> buergeraemterList = new ArrayList<Buergeramt>();
+	
+	
+
 	private static BuergeraemterModel instanz=null;
 	
 	public static BuergeraemterModel getInstanz() {
@@ -32,28 +37,50 @@ public class BuergeraemterModel implements Observable {
 	}
 
 
-	public Buergeramt getBuergeramt() {
-		return this.buergeramt;
+
+	
+	//jetzt
+	public ArrayList<Buergeramt> getBuergeraemterList() {
+		return buergeraemterList;
+		
 	}
 	
-	public void setBuergeramt(Buergeramt buergeramt) {
+	//jetzt
+	public void setBuergeraemterList(ArrayList<Buergeramt> buergeraemterList) {
+		this.buergeraemterList = buergeraemterList;
+	}
+	
+	
+	
+	/*public void setBuergeramt(Buergeramt buergeramt) {
 		this.buergeramt = buergeramt;
 		notifyObservers();
-	}
+	}*/
+	
+	public void addBuergeramt(Buergeramt buergeramt) {
+        buergeraemterList.add(buergeramt);
+        notifyObservers();
+    }
  		
 	public void schreibeBuergeraemterInCsvDatei()
 	    throws IOException{
+		
 		Creator creator =new ConcreteCreator();
 		Product writer = creator.factoryMethod();
-		writer.fuegeInDateiHinzu(buergeramt);
+		for (Buergeramt buergeramt : buergeraemterList) {
+	        writer.fuegeInDateiHinzu(buergeramt);
+	    }
 		writer.schliessDatei();
 
  	}
 	public void schreibeBuergeraemterInTxtDatei()    throws IOException{
 		
+		
 		Creator creator =new ConcreteCreatorTxt();
 		Product writer = creator.factoryMethod();
-		writer.fuegeInDateiHinzu(buergeramt);
+		for (Buergeramt buergeramt : buergeraemterList) {
+	        writer.fuegeInDateiHinzu(buergeramt);
+	    }
 		writer.schliessDatei();
 	}
 

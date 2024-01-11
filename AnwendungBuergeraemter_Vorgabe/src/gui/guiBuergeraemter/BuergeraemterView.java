@@ -141,7 +141,7 @@ public class BuergeraemterView {
     
     private void nehmeBuergeramtAuf(){
     	try{
-       		buergeraemterModel.setBuergeramt(new Buergeramt(
+       		buergeraemterModel.addBuergeramt(new Buergeramt(
         		txtName.getText(), 
        	        Float.parseFloat(txtGeoeffnetVon.getText()),
        	        Float.parseFloat(txtGeoeffnetBis.getText()),
@@ -153,34 +153,45 @@ public class BuergeraemterView {
        		    zeigeFehlermeldungsfensterAn(exc.getMessage());
      	    }
     	
-    	mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
+    	/*mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
 	    	@Override
 	        public void handle(ActionEvent e) {
 	    		schreibeBuergeraemterInDatei("csv");
 	        } 
-        });
-        mnItmTxtExport.setOnAction(new EventHandler<ActionEvent>() {
+        });*/
+    	
+    	mnItmCsvExport.setOnAction(e ->schreibeBuergeraemterInDatei("csv") );
+    	
+    	
+    	
+        /*mnItmTxtExport.setOnAction(new EventHandler<ActionEvent>() {
 	    	@Override
 	        public void handle(ActionEvent e) {
 	    		schreibeBuergeraemterInDatei("txt");
 	        } 
-        });
+        });*/
+        
+        mnItmTxtExport.setOnAction(e ->schreibeBuergeraemterInDatei("txt"));
 
 
     }//Ende nehmeBuergeramtAuf
     
      void zeigeBuergeraemterAn(){
-    	if(buergeraemterModel.getBuergeramt() != null){
-			txtAnzeige.setText(
-   			buergeraemterModel.getBuergeramt().gibBuergeramtZurueck(' '));
-		}
-		else{
-			zeigeInformationsfensterAn("Bisher wurde kein Bürgeramt aufgenommen!");
-		}
+    	 if (buergeraemterModel.getBuergeraemterList().size()>0) {
+        		
+      	   StringBuffer text = new StringBuffer(); 
+         		
+         		for (Buergeramt buergeramt : buergeraemterModel.getBuergeraemterList()) {
+                 text.append(buergeramt.gibBuergeramtZurueck(' ')).append("\n");
+             }
+             txtAnzeige.setText(text.toString());
+         } else {
+             zeigeInformationsfensterAn("Bisher wurde kein Buergeramt aufgenommen!");
+         }
 
     }//Ende zeigeBuergeraemterAn
     
-    private void zeigeInformationsfensterAn(){
+    /*private void zeigeInformationsfensterAn(){
     	if(buergeraemterModel.getBuergeramt() != null){
 			txtAnzeige.setText(
    			buergeraemterModel.getBuergeramt()
@@ -190,9 +201,10 @@ public class BuergeraemterView {
 			zeigeInformationsfensterAn("Bisher wurde kein Bürgeramt aufgenommen!");
 		}
 
-    }//Ende zeigeInformationsfensterAn
+    }*///Ende zeigeInformationsfensterAn
     
     private void schreibeBuergeraemterInDatei(String typ){
+    	//System.out.println("Debug");
 		buergeraemterControl.schreibeBuergeraemterInDatei(typ);
    }
 

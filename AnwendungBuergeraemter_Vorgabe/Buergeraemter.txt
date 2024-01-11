@@ -2,4 +2,16 @@ Daten des buergeramts
 Name des buergeramts	sadsad
 Oeffnungszeit des buergeramts:	 1.0 2.0
 Strasse und Hausnummer des buergeramts:	3
-Dienstleistungen des buergeramts:	asfdef
+Dienstleistungen des buergeramts:	asfdefDaten des buergeramts
+Name des buergeramts	asd
+Oeffnungszeit des buergeramts:	 123.0 123.0
+Strasse und Hausnummer des buergeramts:	132
+Dienstleistungen des buergeramts:	qweDaten des buergeramts
+Name des buergeramts	fasdf
+Oeffnungszeit des buergeramts:	 111.0 111.0
+Strasse und Hausnummer des buergeramts:	111
+Dienstleistungen des buergeramts:	dfdffDaten des buergeramts
+Name des buergeramts	eeee
+Oeffnungszeit des buergeramts:	 1.0 2.0
+Strasse und Hausnummer des buergeramts:	3
+Dienstleistungen des buergeramts:	rrrr
