@@ -1,7 +1,9 @@
 package gui.guiStaeditischeEinrichtungen;
-import business.BuergeraemterModel;
-import business.Buergeramt;
+import business.Buergeraemter.BuergeraemterModel;
+import business.Buergeraemter.Buergeramt;
 import gui.guiBuergeraemter.BuergeraemterControl;
+import business.Sporthalle.Sporthalle;
+import business.Sporthalle.SporthallenModel;
 import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,7 +20,7 @@ public class StaedtischeEinrichtungenView {
 
 	private BuergeraemterModel buergeraemterModel;
 	private StaedtischeEinrichtungenControl staedtischeEinrichtungenControl;
-
+	private SporthallenModel sporthallenModel;
 
 	
 	private Pane pane = new  Pane();
@@ -26,17 +28,24 @@ public class StaedtischeEinrichtungenView {
 	private TextArea txtAnzeigeBuergeraeamter  = new TextArea();
 	private Button btnAnzeigeBuergeraeamter = new Button("Anzeige");
 	
+	private Label lblAnzeigeSporthallen = new Label("Anzeige Sporthalle");
+	private TextArea txtAnzeigeSporthallen  = new TextArea();
+	private Button btnAnzeigeSporthallen = new Button("csv-Import und Anzeige");
 
 	public StaedtischeEinrichtungenView(StaedtischeEinrichtungenControl staedtischeEinrichtungenControl,Stage primaryStage, 
-		BuergeraemterModel buergeraemterModel){
+		BuergeraemterModel buergeraemterModel, SporthallenModel sporthallenModel){
 		Scene scene = new Scene(this.pane, 560, 340);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Anzeige von städtischen " + "Einrichtungen");
 		primaryStage.show();
 		this.staedtischeEinrichtungenControl = staedtischeEinrichtungenControl;
+		this.sporthallenModel = sporthallenModel;
     	this.buergeraemterModel = buergeraemterModel;
 		this.initKomponenten();
 		this.initListener();
+		this.initKomponentenSporthallen();
+		this.initListenerSporthallen();
+		//Kommt
     	}
 
     	private void initKomponenten(){
@@ -60,8 +69,49 @@ public class StaedtischeEinrichtungenView {
         	// Button
        	btnAnzeigeBuergeraeamter.setLayoutX(310);
        	btnAnzeigeBuergeraeamter.setLayoutY(290);
-        	pane.getChildren().add(btnAnzeigeBuergeraeamter); 
+        pane.getChildren().add(btnAnzeigeBuergeraeamter); 
    }
+    	
+    	/***************/
+  
+    	private void initKomponentenSporthallen(){
+    		// Label
+    		Font font = new Font("Arial", 20);
+    		lblAnzeigeSporthallen.setLayoutX(20);
+    		lblAnzeigeSporthallen.setLayoutY(40);
+    		lblAnzeigeSporthallen.setFont(font);
+    		lblAnzeigeSporthallen.setStyle("-fx-font-weight: bold;"); 
+    		pane.getChildren().add(lblAnzeigeSporthallen);    
+        	
+    		txtAnzeigeSporthallen.setEditable(false);
+    		txtAnzeigeSporthallen.setLayoutX(20);
+    		txtAnzeigeSporthallen.setLayoutY(90);
+    		txtAnzeigeSporthallen.setPrefWidth(220);
+    		txtAnzeigeSporthallen.setPrefHeight(185);
+       	pane.getChildren().add(txtAnzeigeSporthallen);        	
+        	// Button
+       	btnAnzeigeSporthallen.setLayoutX(20);
+       	btnAnzeigeSporthallen.setLayoutY(290);
+        	pane.getChildren().add(btnAnzeigeSporthallen); 
+   }
+    	
+
+    	/**************/
+    	
+    	
+    /*******/
+    	private void initListenerSporthallen() {
+       	   btnAnzeigeSporthallen.setOnAction(new EventHandler<ActionEvent>() {
+   	    		@Override
+   	        	public void handle(ActionEvent e) {
+   	            	zeigeSporthallenAn();
+   	        	} 
+      	    });
+       }
+    	
+    	
+    /*******/	
+    	
    
    private void initListener() {
 	   btnAnzeigeBuergeraeamter.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,9 +135,29 @@ public class StaedtischeEinrichtungenView {
 	   }
 	}	
 
-	private void zeigeInformationsfensterAn(String meldung){
+	 void zeigeInformationsfensterAn(String meldung){
 		  	new MeldungsfensterAnzeiger(AlertType.INFORMATION,"Information", meldung).zeigeMeldungsfensterAn();
 	}	
+	 
+	/*******/
+	 
+	 public void zeigeSporthallenAn()
+	    {
+	    	staedtischeEinrichtungenControl.leseSporthallenAusCsv();
+	        if (sporthallenModel.getSporthallen().size()>0) {
+	        		
+	     	   StringBuffer text = new StringBuffer(); 
+	        		
+	        		for (Sporthalle sporthalle : sporthallenModel.getSporthallen()) {
+	                text.append(sporthalle.gibSporthalleZurueck(' ')).append("\n");
+	            }
+	            this.txtAnzeigeSporthallen.setText(text.toString());
+	        } else {
+	            zeigeInformationsfensterAn("Bisher wurde kein Sporthallen aufgenommen!");
+	        }
+	    }
+	 
+	/*******/
 
 
 	
